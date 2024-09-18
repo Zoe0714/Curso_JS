@@ -1,12 +1,9 @@
-console.log("Meu primeiro programa: trabalhando com variavei");
+console.log("Meu primeiro programa: trabalhando com variáveis");
 
-const idade = 26;
+const idade = 20;
 
-console.log("idade");
-console.log(idad)
-console.log(idade+2)
-console.log(idade-2)
-console.log(idade/2)
+console.log (idade);
+console.log (idade+2);
 
 const idadeSomada = idade+2;
-console.log(idadeSomad);
+console.log (idadeSomada);

@@ -1,0 +1,15 @@
+// Declaração de variáveis
+let numero1 = 15; // Primeiro número
+let numero2 = 10; // Segundo número
+
+// Operadores aritmétios
+let soma = numero1 + numero2;
+let subtração = numero1 - numero2;
+let divisão = numero1 / numero2;
+let multiplicação = numero1 * numero2;
+
+// Exibe os resultado no console
+console.log("Soma " + soma);
+console.log("Subtração " + subtração);
+console.log("Divsão " + divsão);
+console.log("Multiplicação " + multiplicação);

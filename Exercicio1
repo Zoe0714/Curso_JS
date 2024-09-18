@@ -1,0 +1,9 @@
+//Declaração de variáveis
+let largura = 10; //Largura do retângulo
+let alturaa = 18; //Altura do retângulo
+
+//Cálculo da área
+let area = largura * altura;
+
+// Exibe os resultado no console
+console.log("A área do retângulo é: " + area);
