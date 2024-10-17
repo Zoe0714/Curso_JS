@@ -1,69 +1,128 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-br">
-     <head> 
-        <meta charset="UTF-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <title>Jogo de Capturar Objetos Caindo</title> 
-        <style> 
-        /* Definindo o estilo da tela de jogo */ 
-        canvas { 
-            background-color: lightblue; 
-            display: block; 
-            margin: 0 auto; 
-            } 
-            </style> 
-            </head> 
-            <body> 
-                <canvas id="gameCanvas" width="500" height="500"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jogo de Capturar Objetos Caindo</title>
+    <style>
+      /* Definindo o estilo da tela de jogo */
+      canvas {
+        background-color: lightblue;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="500" height="500"></canvas>
 
-                <script> 
-                // Seleciona a canvas e ao contexto 20 
-                const canvas = document.getElementById("gameCanvas"); 
-                const ctx = canvas.getContext("2d"); 
-                
-                // Variáveis do jogo 
-                let jogadorx = canvas.width/225;  // Posição inicial do jogador 
-                const jogadorLargura = 50; // Largura do jogador 
-                const jogadorAltura = 20; // Altura do jogador 
-                let objetox = Math.random() (canvas.width - 20); // Posição inicial do objeto 
-                let objeto = 0; // O objeto começa no topo 
-                const objetolargura = 20; // Largura do objeto 
-                const objetoAltura = 20; // Altura do objeto 
-                let velocidadeObjeto = 3; // velocidade de queda do objeto 
-                let pontuacao = 8; // Pontuação inicial 
-                let jogoAtivo = true; // Controla se o jogo está ativo
+    <script>
+      // Seleciona a canvas e ao contexto 20
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
 
-                // Captura as teclas pressionadas 
-                let setaEsquerda = false; 
-                let setaDireita = false; 
-                
-                // Função para desenhar o jogador 
-                function desenhaJogador() { 
-                    ctx.fillStyle = "green"; 
-                    ctx.fillRect(jogadorX, canvas.height - jogadorAltura, jogadorLargura, jogadorA)
-                
-                } 
-                
-                // Função para desenhar o objeto caindo 
-                function desenhaobjeto() { 
-                    ctx.fillStyle = "red"; 
-                    ctx.fillRect(objetox, objetoy, objetoLargura, objetoAltura); 
-                } 
-                
-                // Função para desenhar a pontuação
-                function desenhaPontuacao() { 
-                    ctx.fillStyle = "black"; 
-                    ctx.font = "20px Arial"; 
-                    ctx.fillText("Pontuação: " + pontuacao, 18, 20); 
-                }
-                    
-                    // Função para atualizar a posição do jogador e objeto 
-                    function atualizar() { 
-                        if (setaDireita && jogadorx < canvas.width - jogadorLargura) {
-                     jogadorx += 7; // Move o jogador para a direita 
-                        } else if (setaEsquerda && jogadorx > 0) { 
-                            jogadorX -= 7; // Move o jogador para a esquerda 
-                            } 
+      // Variáveis do jogo
+      let jogadorx = canvas.width / 225; // Posição inicial do jogador
+      const jogadorLargura = 50; // Largura do jogador
+      const jogadorAltura = 20; // Altura do jogador
+      let objetox = Math.random()(canvas.width - 20); // Posição inicial do objeto
+      let objeto = 0; // O objeto começa no topo
+      const objetolargura = 20; // Largura do objeto
+      const objetoAltura = 20; // Altura do objeto
+      let velocidadeObjeto = 3; // velocidade de queda do objeto
+      let pontuacao = 8; // Pontuação inicial
+      let jogoAtivo = true; // Controla se o jogo está ativo
 
-                            // Atualiza a posição do objeto caindo 
-                            objetoy += velocidadeObjeto;
+      // Captura as teclas pressionadas
+      let setaEsquerda = false;
+      let setaDireita = false;
+
+      // Função para desenhar o jogador
+      function desenhaJogador() {
+        ctx.fillStyle = "green";
+        ctx.fillRect(
+          jogadorX,
+          canvas.height - jogadorAltura,
+          jogadorLargura,
+          jogadorA
+        );
+      }
+
+      // Função para desenhar o objeto caindo
+      function desenhaobjeto() {
+        ctx.fillStyle = "red";
+        ctx.fillRect(objetox, objetoy, objetoLargura, objetoAltura);
+      }
+
+      // Função para desenhar a pontuação
+      function desenhaPontuacao() {
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText("Pontuação: " + pontuacao, 18, 20);
+      }
+
+      // Função para atualizar a posição do jogador e objeto
+      function atualizar() {
+        if (setaDireita && jogadorx < canvas.width - jogadorLargura) {
+          jogadorx += 7; // Move o jogador para a direita
+        } else if (setaEsquerda && jogadorx > 0) {
+          jogadorX -= 7; // Move o jogador para a esquerda
+        }
+
+        // Atualiza a posição do objeto caindo
+        objetoy += velocidadeObjeto;
+
+        // Verifica se o objeto tocou o chão
+        if (objeto > canvas.height) {
+          jogoAtivo = false; // O jogo acaba
+          alert("Fim de jogo! Sua pontuação foi: " + pontuacao);
+          document.location.reload(); // Reinicia o jogo
+        }
+        // Verifica colisão com o jogador
+        if (
+          objeto + objetoAltura > canvas.height - jogadorAltura &&
+          objetox + objetoLargura > jogadorX &&
+          objetoX < jogadorX + jogadorLargura
+        ) {
+          pontuacao++; // Aumenta a pontuação
+          // Reposiciona o objeto no topo, em uma posição aleatória objetox = Math.random() (canvas.width objetoLargura);
+          objetoy = 0;
+          velocidadeObjeto + 8.5; // Aumento a velocidade do objeto gradualmente
+        }
+      }
+      // Função principal do jogo
+      function desenhar() {
+        if (jogoAtivo) {
+          // Limpa a canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          // Desenha os elementos do jogo
+          desenhaJogador();
+          desenhaobjeto();
+          desenhaPontuacao();
+          // Atualiza a posição dos elementos
+          atualizar();
+
+          // Chama o próximo frame
+          requestAnimationFrame(desenhar);
+        }
+      }
+      // Captura os eventos de teclado
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowRight") {
+          setaDireita = true;
+        } else if (event.key === "ArrowLeft") {
+          setaEsquerda = true;
+        }
+      });
+      document.addEventListener("keyup", function (event) {
+        if (event.key === "ArrowRight") {
+          setaDireita = false;
+        } else if (event.key === "ArrowLeft") {
+          setaEsquerda = false;
+        }
+      });
+      //Inicia o jogo
+      desenhar();
+    </script>
+  </body>
+</html>
