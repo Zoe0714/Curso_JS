@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo de Capturar Objetos Caindo</title>
     <style>
       /* Definindo o estilo da tela de jogo */
       canvas {
-        background-color: lightblue;
+        background-color: rgb(214, 173, 230);
         display: block;
         margin: 0 auto;
       }
@@ -22,15 +22,15 @@
       const ctx = canvas.getContext("2d");
 
       // Variáveis do jogo
-      let jogadorx = canvas.width / 225; // Posição inicial do jogador
+      let jogadorX = canvas.width / 2 - 25; // Posição inicial do jogador
       const jogadorLargura = 50; // Largura do jogador
       const jogadorAltura = 20; // Altura do jogador
-      let objetox = Math.random()(canvas.width - 20); // Posição inicial do objeto
-      let objeto = 0; // O objeto começa no topo
-      const objetolargura = 20; // Largura do objeto
+      let objetoX = Math.random() * (canvas.width - 20); // Posição inicial do objeto
+      let objetoY = 0; // O objeto começa no topo
+      const objetoLargura = 20; // Largura do objeto
       const objetoAltura = 20; // Altura do objeto
       let velocidadeObjeto = 3; // velocidade de queda do objeto
-      let pontuacao = 8; // Pontuação inicial
+      let pontuacao = 0; // Pontuação inicial
       let jogoAtivo = true; // Controla se o jogo está ativo
 
       // Captura as teclas pressionadas
@@ -39,55 +39,54 @@
 
       // Função para desenhar o jogador
       function desenhaJogador() {
-        ctx.fillStyle = "green";
+        ctx.fillStyle = "blue";
         ctx.fillRect(
           jogadorX,
-          canvas.height - jogadorAltura,
-          jogadorLargura,
-          jogadorA
+          canvas.height - jogadorAltura, jogadorLargura, jogadorAltura
         );
       }
 
       // Função para desenhar o objeto caindo
-      function desenhaobjeto() {
-        ctx.fillStyle = "red";
-        ctx.fillRect(objetox, objetoy, objetoLargura, objetoAltura);
+      function desenhaObjeto() {
+        ctx.fillStyle = "white";
+        ctx.fillRect(objetoX, objetoY, objetoLargura, objetoAltura);
       }
 
       // Função para desenhar a pontuação
       function desenhaPontuacao() {
         ctx.fillStyle = "black";
         ctx.font = "20px Arial";
-        ctx.fillText("Pontuação: " + pontuacao, 18, 20);
+        ctx.fillText("Pontuação: " + pontuacao, 10, 20);
       }
 
       // Função para atualizar a posição do jogador e objeto
       function atualizar() {
-        if (setaDireita && jogadorx < canvas.width - jogadorLargura) {
-          jogadorx += 7; // Move o jogador para a direita
-        } else if (setaEsquerda && jogadorx > 0) {
+        if (setaDireita && jogadorX < canvas.width - jogadorLargura) {
+          jogadorX += 7; // Move o jogador para a direita
+        } else if (setaEsquerda && jogadorX > 0) {
           jogadorX -= 7; // Move o jogador para a esquerda
         }
 
         // Atualiza a posição do objeto caindo
-        objetoy += velocidadeObjeto;
+        objetoY += velocidadeObjeto;
 
         // Verifica se o objeto tocou o chão
-        if (objeto > canvas.height) {
+        if (objetoY > canvas.height) {
           jogoAtivo = false; // O jogo acaba
           alert("Fim de jogo! Sua pontuação foi: " + pontuacao);
           document.location.reload(); // Reinicia o jogo
         }
         // Verifica colisão com o jogador
         if (
-          objeto + objetoAltura > canvas.height - jogadorAltura &&
-          objetox + objetoLargura > jogadorX &&
+          objetoY + objetoAltura > canvas.height - jogadorAltura &&
+          objetoX + objetoLargura > jogadorX &&
           objetoX < jogadorX + jogadorLargura
         ) {
           pontuacao++; // Aumenta a pontuação
-          // Reposiciona o objeto no topo, em uma posição aleatória objetox = Math.random() (canvas.width objetoLargura);
-          objetoy = 0;
-          velocidadeObjeto + 8.5; // Aumento a velocidade do objeto gradualmente
+          // Reposiciona o objeto no topo, em uma posição aleatória 
+          objetoX = Math.random() * (canvas.width - objetoLargura);
+          objetoY = 0;
+          velocidadeObjeto + 0.5; // Aumento a velocidade do objeto gradualmente
         }
       }
       // Função principal do jogo
@@ -95,10 +94,12 @@
         if (jogoAtivo) {
           // Limpa a canvas
           ctx.clearRect(0, 0, canvas.width, canvas.height);
+
           // Desenha os elementos do jogo
           desenhaJogador();
-          desenhaobjeto();
+          desenhaObjeto();
           desenhaPontuacao();
+
           // Atualiza a posição dos elementos
           atualizar();
 
