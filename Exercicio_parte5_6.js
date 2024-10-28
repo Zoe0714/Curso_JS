@@ -1,4 +1,4 @@
-// Exemplo de tipos de dados básicos em JavaScript
+// Cadastro aluno
 
 // Nome do aluno
 let nome = "Lana";
