@@ -15,7 +15,7 @@ const rl = readline.createInterface({
             const idadeFutura = parseInt(idade) + 10; 
             
             // Exibe a mensagem com o nome e a idade futura 
-            console.log('Olá, ${nome)! Em 10 anos, você terá ${idadeFutura) anos.'); 
+            console.log(`Olá, ${nome}! Em 10 anos, você terá ${idadeFutura} anos.`); 
                 
                 // Fecha o readline 
                 rl.close(); 
