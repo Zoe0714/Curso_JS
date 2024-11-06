@@ -1,0 +1,166 @@
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" 
+        content="width=device-width, 
+        initial-scale=1.0"> 
+        <title>
+            Catálogo de Filmes
+        </title> 
+        <style> 
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background-color: #f5f5f5; 
+        } 
+        
+        h1 {
+            color: #333;
+        } 
+                label { 
+                    display: block; 
+                    margin-top: 10px; 
+                
+                }
+                   
+                input, textarea { 
+                        width: 100%; 
+                        padding: 8px; 
+                        margin-top: 5px; 
+                        margin-bottom: 10px; 
+                        border-radius: 5px; 
+                        border: 1px solid #ccc;
+                    }
+                    button { 
+                        padding: 10px 15px; 
+                        background-color: #28a745; 
+                        color: white; 
+                        border: none; 
+                        border-radius: 5px; 
+                        cursor: pointer; 
+                        margin-right: 10px;  
+                    }
+
+                        button:hover  {
+                        background-color: #218838;
+                    
+                    } 
+
+                        .filmes-lista {
+                             margin-top: 20px; 
+                             padding: 10px; 
+                             background-color: #fff; 
+                             border-radius: 5px; 
+                             box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+                            } 
+
+                             .filme-item { 
+                                margin-bottom: 15px; 
+                                padding-bottom: 10px; 
+                                border-bottom: 1px solid #ddd; 
+                            } 
+
+                                .filme-item:last-child { 
+                                    border-bottom: none; 
+                                } 
+
+                                    .filme-item strong {
+                                         display: block; 
+                                         margin-top: 5px; 
+                                    }
+                                    
+                                    .actions { 
+                                            margin-top: 10px;
+                                         }
+
+                                        </style> 
+                                        </head> 
+                                        <body> 
+
+                                            <h1>Catálogo de Filmes</h1> 
+
+                                            <div> 
+                                                <h2>Cadastrar Novo Filme</h2> 
+                                                <label for="nome">Nome do filme:</label> 
+                                                <input type="text" id="nome" placeholder="Insira o nome do filme"> 
+
+                                                <label for="classificacao">Classificação indicativa: </label>
+                                            <input type="text" id="classificacao" placeholder="Ex: Livre, 12 anos, etc."> 
+                                            <label for="duracao">Duração (minutos): </label> 
+                                            <input type="number" id="duracao" placeholder="Duração em minutos"> 
+
+                                            <label for="genero">Gênero: </label> 
+                                            <input type="text" id="genero" placeholder="Ex: Ação, Comédia, Drama, etc."> 
+
+                                            <label for="ano">Ano de lançamento:</label> 
+                                            <input type="number" id="ano" placeholder="Ano de lançamento"> 
+
+                                            <label for="sinopse">Sinopse:</label> 
+                                            <textarea id="sinopse" rows="4" placeholder="Insira a sinopse do filme"></textarea>
+
+                                            <button onclick="cadastrarFilme()">Cadastrar Filme</button> 
+                                            <button onclick="atualizarFilme()" id="btn-atualizar" 
+                                            style="display:none;">Atualizar Filme</button>
+                                         </div> 
+                                         
+                                         <div> 
+                                                <h2>Buscar Filme por Nome</h2> 
+                                                <input type="text" id="busca" placeholder="Digite o nome do filme">
+
+                                                <button onclick="buscarFilme ()">Buscar</button>
+                                            </div> 
+                                            
+                                            <div> <h2>Todos os Filmes Cadastrados</h2> 
+                                            <button onclick="listarFilmes ()">Exibir Todos 05 Filmes</button>
+
+                                            <div id="lista-filmes" class="filmes-lista"></div> 
+                                        </div> 
+
+                                            <script> 
+                                            let catalogo = []; 
+                                            let filmeEditando = null; 
+                                            
+                                            // Função para cadastrar novo filme
+                                        function cadastrarFilme() { 
+                                            const nome = document.getElementById('nome').value; 
+                                            const classificacao = document.getElementById('classificacao').value; 
+                                            const duracao = document.getElementById('duracag').value; 
+                                            const gener = document.getElementById('genero').value; 
+                                            const ano = document.getElementById('ano').value; 
+                                            const sinopse = document.getElementById('sinopse').value; 
+                                            
+                                            if (nome && classificacao && duracao && genero && ano && sinopse) { 
+                                            const novoFilme = { 
+                                                nome, 
+                                                classificacao, 
+                                                duracao, 
+                                                genero, 
+                                                ano, 
+                                                sinopse 
+                                            };
+
+                                                catalogo.push (novoFilme); 
+                                                alert(`Filme "${nome}" cadastrado com sucesso!`); 
+                                                limparCampos(); 
+                                                listarFilmes(); 
+                                                } else { 
+                                                 alert("Por favor, preencha todos os campos!"); 
+                                                }
+                                            }
+                                            // Função para buscar filme por nome 
+                                            function buscarFilme () { 
+                                                const busca = 
+                                                document.getElementById('busca').value.toLowerCase(); 
+                                                const filmeEncontrado = catalogo.find(filme => 
+                                                filme.nome.toLowerCase() === busca); 
+
+                                                const listaFilmes = 
+                                                document.getElementById('lista-filmes'); 
+                                                listaFilmes.innerHTML = ''; 
+                                                
+                                                if (filmeEncontrado) { 
+                                                    listarilmes.innerHTML 
+                                                    formatarDetalhesFilme (filmeEncontrado);
+
+                                                }}
