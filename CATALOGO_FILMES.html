@@ -162,5 +162,66 @@
                                                 if (filmeEncontrado) { 
                                                     listarilmes.innerHTML 
                                                     formatarDetalhesFilme (filmeEncontrado);
+                                            } else { 
+                                                listarilmes.innerHTML = `<p>Filme "${busca}" não encontrado.</p>`; 
+                                                } 
+                                                } 
 
-                                                }}
+                                                // Função para listar todos os filmes 
+                                                function listarFilmes(){ 
+                                                const listalilmes = document.getElementById('lista-filmes'); 
+                                                listarilmes.innerHTML = ''; 
+                                                
+                                                if (catalogo.length==0) {
+                                                 listarilmes.innerHTML = '<p>Nenhum filme cadastrado no catálogo.</p>'; 
+                                                 } else { 
+                                                  catalogo.forEach((filme, index) => { 
+                                                ListaFilmes.innerHTML += formatarDetalhesFilme (filme, index);
+                                                 });
+                                            }
+                                            }
+                                            // Função auxiliar para formatar os detalhes de um filme com botões de editar e excluir 
+                                            function formatarDetalhesFilme (filme, index) { 
+                                                return `
+                                                <div class="filme-item"> 
+                                                    <strong>Nome:
+                                                        </strong> ${filme.nome}
+                                                            <strong>Classificação Indicativa:</strong> $(filme.classificacao) 
+                                                            <strong>Duração:</strong> ${filme.duracao} minutos 
+                                                            <strong>Gênero:</strong> ${filme.genero} 
+                                                            <strong>Ano de Lançamento:</strong> ${filme.ano}
+                                                            <strong>Sinopse:</strong> ${filme.sinopse} 
+                                                            <div class="actions"> 
+                                                                <button 
+                                                                onclick="editarFilme (${index})">Editar</button> 
+                                                                <button onclick="excluirFilme (${index})" 
+                                                                style="background-color: #dc3545;">Excluir</button> 
+                                                                </div> 
+                                                                </div>
+                                                                `;
+                                                            }
+
+                                                                // Função para recomendar filmes com base no genero 
+                                                                function recomendarFilmes (genero) { 
+                                                                    const recomendacoes = document.getElementById('recomendacoes'); 
+                                                                    recomendacoes.innerHTML = '<h3>Filmes Recomendados:</h3>''; 
+                                                                    
+                                                                    const filmesRecomendados = catalogo.filter (filme => filme.genero.toLowerCase() === genero.toLowerCase() && filme.nome !== document.getElementById('nome').value); 
+                                                                    if (filmes Recomendados.length > 0) { filmes Recomendados.forEach(filme > { 
+                                                                        recomendacoes.innerHTML + formatarDetalhesFilme (filme); 
+                                                                    }); 
+                                                                 } else {
+                                                                    recomendacoes.innerHTML += "<p>Nenhum filme recomendado encontrado.</p>"; 
+                                                                 }
+                                                                }
+                                                                    // Função para limpar os campos do formulário 
+                                                                    function limparCampos() ( 
+                                                                        document.getElementById("nome').value; 
+                                                                        document.getElementById('classificacao").value = ""; 
+                                                                        document.getElementById("duracao').value; 
+                                                                        document.getElementById("genero").value = ""; 
+                                                                        document.getElementById("ano").value": 
+                                                                        document.getElementById("sinopse").value; 
+                                                                        document.getElementById('btn-atualizar').style.display 'none'; 
+                                                                        filmeEditando null;
+                                                            }
